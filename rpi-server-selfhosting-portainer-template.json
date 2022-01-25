@@ -1,5 +1,5 @@
 {
-  "version": "2",
+  "version": "1",
   "templates": [
     {
       "categories": ["Other", "Tools"],
@@ -119,8 +119,10 @@
         {
           "bind": "/portainer/Files/AppData/Config/PiHole-Unbound/DNS",
           "container": "/etc/dnsmasq.d"
-        },
-        {
+        }
+      ]
+    },
+    {
       "categories": ["Monitor", "Tools"],
       "description": "Monitor your Raspberry Pi and Dockers using Grafana developed by oijkn. Please download grafana configs from his git https://github.com/oijkn/Docker-Raspberry-PI-Monitoring",
       "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/rpi_monitor.png",
@@ -240,8 +242,6 @@
           "bind": "/portainer/Files/AppData/Config/Homer",
           "container": "/www/config.yml"
         }
-      ]
-    }
       ]
     }
   ]
