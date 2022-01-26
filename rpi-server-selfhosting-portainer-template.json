@@ -241,117 +241,117 @@
         {
           "bind": "/portainer/Files/AppData/Config/Homer",
           "container": "/www/config.yml"
+        }
+      ]
+    },
+    {
+      "categories": ["Cloud", "Productivity", "Tools", "Other", "Web"],
+      "description": "Invoices, Expenses and Tasks built with Laravel and Flutter.",
+      "env": [
+        {
+          "default": "invoice.my.domain",
+          "label": "URL",
+          "name": "URL"
         },
         {
-          "categories": ["Cloud", "Productivity", "Tools", "Other", "Web"],
-          "description": "Invoices, Expenses and Tasks built with Laravel and Flutter.",
-          "env": [
-            {
-              "default": "invoice.my.domain",
-              "label": "URL",
-              "name": "URL"
-            },
-            {
-              "label": "APP_KEY",
-              "name": "APP_KEY"
-            },
-            {
-              "label": "TZ",
-              "name": "TZ"
-            },
-            {
-              "label": "DATABASE_PASSWORD",
-              "name": "DATABASE_PASSWORD"
-            },
-            {
-              "label": "MYSQL_ROOT_PASSWORD",
-              "name": "MYSQL_ROOT_PASSWORD"
-            },
-            {
-              "label": "PORT",
-              "name": "PORT"
-            }
-          ],
-          "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/invoice_ninja.png",
-          "name": "invoice_ninja",
-          "note": "The database user is invoice_ninja and the database is ninja_db. Please generate an app key following the documentation \u003ca href='https://github.com/invoiceninja/dockerfiles'\u003ehere\u003c/a\u003e. ",
-          "platform": "linux",
-          "repository": {
-            "stackfile": "Template/Stack/invoice-ninja.yml",
-            "url": "https://github.com/SelfhostedPro/selfhosted_templates"
-          },
-          "title": "Invoice Ninja",
-          "type": 3
+          "label": "APP_KEY",
+          "name": "APP_KEY"
         },
         {
-          "categories": ["Other", "Tools"],
-          "description": "This is a Bitwarden server API implementation written in Rust compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal..",
-          "image": "vaultwarden/server:latest",
-          "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/bitwarden.png",
-          "name": "vaultwarden",
-          "note": "This project is not associated with the Bitwarden project nor 8bit Solutions LLC.",
-          "platform": "linux",
-          "ports": ["80/tcp"],
-          "restart_policy": "unless-stopped",
-          "title": "Vaultwarden",
-          "type": 1,
-          "volumes": [
-            {
-              "bind": "/portainer/Files/AppData/Config/Vaultwarden",
-              "container": "/config"
-            }
-          ]
+          "label": "TZ",
+          "name": "TZ"
         },
         {
-          "categories": ["Other", "Downloaders"],
-          "description": "YoutubeDL-Material is a Material Design frontend for youtube-dl. It's coded using Angular 9 for the frontend, and Node.js on the backend.",
-          "image": "tzahi12345/youtubedl-material:latest",
-          "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ytdlm.png",
-          "name": "youtubedl-material",
-          "platform": "linux",
-          "ports": ["17442:17442/tcp"],
-          "restart_policy": "unless-stopped",
-          "title": "YouTubeDL-Material",
-          "type": 1,
-          "volumes": [
-            {
-              "bind": "/portainer/Files/AppData/Config/YTDLM",
-              "container": "/app/appdata"
-            },
-            {
-              "bind": "/portainer/Files/AppData/Youtube/Video",
-              "container": "/app/video"
-            },
-            {
-              "bind": "/portainer/Files/AppData/Youtube/Subscriptions",
-              "container": "/app/subscriptions"
-            },
-            {
-              "bind": "/portainer/Files/AppData/Youtube/Users",
-              "container": "/app/users"
-            },
-            {
-              "bind": "/portainer/Files/AppData/Youtube/Audio",
-              "container": "/app/audio"
-            }
-          ]
+          "label": "DATABASE_PASSWORD",
+          "name": "DATABASE_PASSWORD"
         },
         {
-          "categories": ["Home Automation"],
-          "description": "Home Assistant is a free and open-source software for home automation that is designed to be the central control system for smart home devices with focus on local control and privacy.",
-          "image": "homeassistant/home-assistant:latest",
-          "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/homeassistant.png",
-          "name": "home assistant",
-          "platform": "linux",
-          "ports": ["8999:8123/tcp"],
-          "restart_policy": "unless-stopped",
-          "title": "Home Assistant",
-          "volumes": [
-            {
-              "bind": "/portainer/Files/AppData/Config/HomeAssistant/assets",
-              "container": "/config"
-            }
-          ]
+          "label": "MYSQL_ROOT_PASSWORD",
+          "name": "MYSQL_ROOT_PASSWORD"
+        },
+        {
+          "label": "PORT",
+          "name": "PORT"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/invoice_ninja.png",
+      "name": "invoice_ninja",
+      "note": "The database user is invoice_ninja and the database is ninja_db. Please generate an app key following the documentation \u003ca href='https://github.com/invoiceninja/dockerfiles'\u003ehere\u003c/a\u003e. ",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "Template/Stack/invoice-ninja.yml",
+        "url": "https://github.com/SelfhostedPro/selfhosted_templates"
+      },
+      "title": "Invoice Ninja",
+      "type": 3
+    },
+    {
+      "categories": ["Other", "Tools"],
+      "description": "This is a Bitwarden server API implementation written in Rust compatible with upstream Bitwarden clients*, perfect for self-hosted deployment where running the official resource-heavy service might not be ideal..",
+      "image": "vaultwarden/server:latest",
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/bitwarden.png",
+      "name": "vaultwarden",
+      "note": "This project is not associated with the Bitwarden project nor 8bit Solutions LLC.",
+      "platform": "linux",
+      "ports": ["80/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Vaultwarden",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/Vaultwarden",
+          "container": "/config"
+        }
+      ]
+    },
+    {
+      "categories": ["Other", "Downloaders"],
+      "description": "YoutubeDL-Material is a Material Design frontend for youtube-dl. It's coded using Angular 9 for the frontend, and Node.js on the backend.",
+      "image": "tzahi12345/youtubedl-material:latest",
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ytdlm.png",
+      "name": "youtubedl-material",
+      "platform": "linux",
+      "ports": ["17442:17442/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "YouTubeDL-Material",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/YTDLM",
+          "container": "/app/appdata"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Video",
+          "container": "/app/video"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Subscriptions",
+          "container": "/app/subscriptions"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Users",
+          "container": "/app/users"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Audio",
+          "container": "/app/audio"
+        }
+      ]
+    },
+    {
+      "categories": ["Home Automation"],
+      "description": "Home Assistant is a free and open-source software for home automation that is designed to be the central control system for smart home devices with focus on local control and privacy.",
+      "image": "homeassistant/home-assistant:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/homeassistant.png",
+      "name": "home assistant",
+      "platform": "linux",
+      "ports": ["8999:8123/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Home Assistant",
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/HomeAssistant/assets",
+          "container": "/config"
         }
       ]
     }
