@@ -418,6 +418,25 @@
       ]
     },
     {
+      "categories": ["Other", "Tools"],
+      "description": "[arm] A clientless remote desktop gateway.",
+      "image": "oznu/guacamole:armhf",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/guacamole.png",
+      "name": "guacamole",
+      "note": "The default login will be guacadmin/guacadmin. It is common practice to add a new admin user and remove the default user for Guacamole.",
+      "platform": "linux",
+      "ports": ["8080:8080/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Guacamole",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/Guacamole",
+          "container": "/config"
+        }
+      ]
+    },
+    {
       "description": "Home Assistant is a free and open-source software for home automation that is designed to be the central control system for smart home devices with focus on local control and privacy.",
       "image": "homeassistant/home-assistant:latest",
       "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/homeassistant.png",
@@ -426,6 +445,7 @@
       "ports": ["8999:8123/tcp"],
       "restart_policy": "unless-stopped",
       "title": "Home Assistant",
+      "type": 1,
       "volumes": [
         {
           "bind": "/portainer/Files/AppData/Config/HomeAssistant/assets",
