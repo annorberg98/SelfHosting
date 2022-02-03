@@ -3,6 +3,52 @@
   "templates": [
     {
       "categories": ["Other", "Tools"],
+      "description": "ArchiveBox is a powerful, self-hosted internet archiving solution to collect, save, and view sites you want to preserve offline.",
+      "image": "archivebox/archivebox:master",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/archivebox.png",
+      "name": "archivebox",
+      "note": "By default an admin user is not created. You can do so by launching a shell in the container and executing 'archivebox manage createsuperuser'. Documentation is Available \u003ca href='https://github.com/ArchiveBox/ArchiveBox/wiki'\u003ehere\u003c/a\u003e.",
+      "platform": "linux",
+      "ports": ["8002:8000/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Archivebox",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/archivebox",
+          "container": "/data"
+        }
+      ],
+      "env": [
+        {
+          "default": "*",
+          "label": "ALLOWED_HOSTS",
+          "name": "ALLOWED_HOSTS"
+        },
+        {
+          "default": "750m",
+          "label": "MEDIA_MAX_SIZE",
+          "name": "MEDIA_MAX_SIZE"
+        },
+        {
+          "default": "true",
+          "label": "PUBLIC_INDEX",
+          "name": "PUBLIC_INDEX"
+        },
+        {
+          "default": "true",
+          "label": "PUBLIC_SNAPSHOTS",
+          "name": "PUBLIC_SNAPSHOTS"
+        },
+        {
+          "default": "false",
+          "label": "PUBLIC_ADD_VIEW",
+          "name": "PUBLIC_ADD_VIEW"
+        }
+      ]
+    },
+    {
+      "categories": ["Other", "Tools"],
       "description": "A Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole.",
       "image": "pihole/pihole:latest",
       "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/pihole.png",
@@ -450,6 +496,218 @@
         {
           "bind": "/portainer/Files/AppData/Config/HomeAssistant/assets",
           "container": "/config"
+        }
+      ]
+    },
+    {
+      "categories": ["Other", "Tools"],
+      "description": "[arm] Web File Browser which can be used as a middleware or standalone app.",
+      "image": "filebrowser/filebrowser:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/filebrowser.png",
+      "name": "filebrowser",
+      "note": "The default user and password is admin/admin.",
+      "platform": "linux",
+      "ports": ["8082:80/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "FileBrowser",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Downloads",
+          "container": "/srv"
+        }
+      ]
+    },
+    {
+      "categories": ["Downloaders", "Tools"],
+      "description": "JDownloader docker image",
+      "env": [
+        {
+          "default": "",
+          "label": "MYJD_DEVICE_NAME",
+          "name": "MYJD_DEVICE_NAME"
+        },
+        {
+          "default": "",
+          "label": "MYJD_USER",
+          "name": "MYJD_USER"
+        },
+        {
+          "default": "",
+          "label": "MYJD_PASSWORD",
+          "name": "MYJD_PASSWORD"
+        }
+      ],
+      "image": "jaymoulin/jdownloader:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/jdownloader.png",
+      "name": "JDownloader",
+      "platform": "linux",
+      "ports": ["3129:3129/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "JDownloader",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/JDownloader",
+          "container": "/opt/JDownloader/cfg"
+        },
+        {
+          "bind": "/portainer/Downloads",
+          "container": "/opt/JDownloader/Downloads"
+        }
+      ]
+    },
+    {
+      "categories": ["Web", "Proxy"],
+      "description": "Nginx is a web server with a strong focus on high concurrency, performance and low memory usage. It can also act as a reverse proxy server for HTTP, HTTPS, SMTP, POP3, and IMAP protocols, as well as a load balancer and an HTTP cache.",
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        }
+      ],
+      "image": "linuxserver/nginx:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/nginx-icon.png",
+      "name": "nginx",
+      "platform": "linux",
+      "ports": ["8080:80/tcp", "8443:443/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Nginx",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/Nginx",
+          "container": "/config"
+        }
+      ]
+    },
+    {
+      "categories": ["Proxy", "Tools"],
+      "description": "Nginx Proxy Manager enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.  Please see the install document at https://github.com/pi-hosted/pi-hosted/tree/master/docs installing the template",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/proxy_mgr.png",
+      "name": "nginx-proxy-manager",
+      "platform": "linux",
+      "ports": ["80:8080/tcp", "81:8181/tcp", "443:4443/tcp"],
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/New_York",
+          "label": "TZ",
+          "name": "TZ"
+        },
+        {
+          "default": "password",
+          "label": "DATABASE_PASSWORD",
+          "name": "DATABASE_PASSWORD"
+        },
+        {
+          "default": "password",
+          "label": "MYSQL_ROOT_PASSWORD",
+          "name": "MYSQL_ROOT_PASSWORD"
+        }
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Nginx Proxy Manager",
+      "type": 3,
+      "repository": {
+        "stackfile": "stack/nginx-proxy-manager.yml",
+        "url": "https://github.com/pi-hosted/pi-hosted"
+      }
+    },
+    {
+      "categories": ["Backup", "Cloud", "Other", "Tools"],
+      "description": null,
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        }
+      ],
+      "image": "linuxserver/syncthing:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/syncthing-icon.png",
+      "name": "syncthing",
+      "platform": "linux",
+      "ports": ["8384:8384/tcp", "21027:21027/udp", "22000:22000/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "SyncThing",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/Syncthing",
+          "container": "/config"
+        },
+        {
+          "container": "/sync"
+        }
+      ]
+    },
+    {
+      "categories": ["Proxy", "Security", "Tools"],
+      "description": "Cloud-Native Networking Stack That Just Works.",
+      "image": "traefik:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/traefik.png",
+      "name": "traefik",
+      "note": "A simple and lightweight reverse proxy",
+      "platform": "linux",
+      "ports": ["80:80/tcp", "443:443/tcp", "8080:8080/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Traefik",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/traefik.yml",
+          "container": "/traefik.yml"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/config.yml",
+          "container": "/config.yml"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/acme.json",
+          "container": "/acme.json"
+        },
+        {
+          "bind": "/var/run/docker.sock",
+          "container": "/var/run/docker.sock"
+        }
+      ]
+    },
+    {
+      "categories": ["Other", "Tools", "Maintenance"],
+      "description": "With watchtower you can update the running version of your containerized app simply by pushing a new image to the Docker Hub or your own image registry. Watchtower will pull down your new image, gracefully shut down your existing container and restart it with the same options that were used when it was deployed initially.",
+      "image": "containrrr/watchtower:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/watchtower.png",
+      "name": "watchtower",
+      "note": "It is recommended to manually update your containers but we're including this for those of you that don't care",
+      "platform": "linux",
+      "restart_policy": "unless-stopped",
+      "title": "Watchtower",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/var/run/docker.sock",
+          "container": "/var/run/docker.sock"
         }
       ]
     }
