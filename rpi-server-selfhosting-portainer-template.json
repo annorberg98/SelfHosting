@@ -750,6 +750,66 @@
         }
       ],
       "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://www.duplicati.com/\" target=\"_blank\">https://www.duplicati.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://docs.linuxserver.io/images/docker-duplicati\" target=\"_blank\">https://docs.linuxserver.io/images/docker-duplicati</a><br><br><br>"
+    },
+    {
+      "categories": ["Other", "Games"],
+      "description": "This docker image provides the FoundryVTT system for hosting your own virtual table top games.",
+      "env": [
+        {
+          "default": "John",
+          "label": "Foundry Account Name",
+          "name": "FOUNDRY_USERNAME"
+        },
+        {
+          "default": "password",
+          "label": "Foundry Password",
+          "name": "FOUNDRY_PASSWORD"
+        },
+        {
+          "default": "changeme",
+          "label": "Instance Admin Password",
+          "name": "FOUNDRY_ADMIN_KEY"
+        },
+        {
+          "default": "true",
+          "label": "CONTAINER_PRESERVE_CONFIG",
+          "name": "CONTAINER_PRESERVE_CONFIG"
+        }
+      ],
+      "image": "felddy/foundryvtt:release",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/foundrylogo.png",
+      "name": "FoundryVTT",
+      "platform": "linux",
+      "ports": ["30000:30000/tcp"],
+      "restart_polocy": "unless-stopped",
+      "title": "FoundryVTT Server",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/foundryvtt",
+          "container": "/data"
+        }
+      ],
+      "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://foundryvtt.com/\" target=\"_blank\">https://foundryvtt.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://hub.docker.com/r/felddy/foundryvtt\" target=\"_blank\">https://hub.docker.com/r/felddy/foundryvtt</a><br><br><br>"
+    },
+    {
+      "categories": ["Other", "Tools"],
+      "description": "It is a self-hosted monitoring tool like 'Uptime Robot'.",
+      "image": "louislam/uptime-kuma:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/uptime-kuma.png",
+      "name": "uptime-kuma",
+      "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://github.com/louislam/uptime-kuma\" target=\"_blank\">https://github.com/louislam/uptime-kuma</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/louislam/uptime-kuma/wiki/%F0%9F%94%A7-How-to-Install#-docker\" target=\"_blank\">https://github.com/louislam/uptime-kuma/wiki/%F0%9F%94%A7-How-to-Install#-docker</a><br><br><br>A fancy self-hosted monitoring tool.",
+      "platform": "linux",
+      "ports": ["3001:3001/tcp"],
+      "restart_policy": "unless-stopped",
+      "title": "Uptime Kuma",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/uptime-kuma",
+          "container": "/app/data"
+        }
+      ]
     }
   ]
 }
