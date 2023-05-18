@@ -49,6 +49,31 @@
     },
     {
       "categories": ["Other", "Tools"],
+      "description": "PiAlert is monitoring your WIFI/LAN network and alerting of new (intruder or hacker) devices.",
+      "image": "jokobsk/pi.alert:latest",
+      "logo": "https://d36jcksde1wxzq.cloudfront.net/54e48877dab8df8f92cd.png",
+      "name": "pialert",
+      "note": "",
+      "platform": "linux",
+      "ports": [
+        "20211:80/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Pi-Alert",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Configs/pialert/config",
+          "container": "/home/pi/pialert/config"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Configs/pialert/db",
+          "container": "/home/pi/pialert/db"
+        }
+      ]
+    },
+    {
+      "categories": ["Other", "Tools"],
       "description": "A Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole.",
       "image": "pihole/pihole:latest",
       "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/pihole.png",
