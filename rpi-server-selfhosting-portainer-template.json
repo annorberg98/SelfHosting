@@ -239,6 +239,39 @@
       "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://www.duplicati.com/\" target=\"_blank\">https://www.duplicati.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://docs.linuxserver.io/images/docker-duplicati\" target=\"_blank\">https://docs.linuxserver.io/images/docker-duplicati</a><br><br><br>"
     },
     {
+			"categories": [
+				"Other",
+				"Tools"
+			],
+			"description": "Eclipse Mosquitto is an open source message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.\r\nHave a look on https://mosquitto.org/man/mosquitto_passwd-1.html",
+			"image": "eclipse-mosquitto:latest",
+			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/eclipse-mosquitto.png",
+			"name": "eclipse-mosquitto",
+			"platform": "linux",
+			"ports": [
+				"1883:1883/tcp",
+				"9001:9001/tcp"
+			],
+			"restart_policy": "unless-stopped",
+			"title": "Eclipse Mosquitto MQTT",
+			"type": 1,
+			"volumes": [
+				{
+					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/config",
+					"container": "/mosquitto/config"
+				},
+				{
+					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/data",
+					"container": "/mosquitto/data"
+				},
+				{
+					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/log",
+					"container": "/mosquitto/log"
+				}
+			],
+			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><br><h3><b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/tools/install_mosquitto.sh\" target=\"_blank\">Pre-installation script</a> must be RAN before you install: </b>wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/install_mosquitto.sh | bash</h3><br><br>"
+		},
+    {
       "categories": [
         "Other",
         "Tools"
@@ -825,6 +858,105 @@
       }
     },
     {
+			"categories": [
+				"Proxy",
+				"Tools"
+			],
+			"description": "Nginx Proxy Manager v2 with sqlite and Goaccess Charts enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.  Please see the install document at https://github.com/pi-hosted/pi-hosted/tree/master/docs installing the template",
+			"env": [
+				{
+					"default": "1000",
+					"label": "PUID",
+					"name": "PUID"
+				},
+				{
+					"default": "1000",
+					"label": "PGID",
+					"name": "PGID"
+				},
+				{
+					"default": "America/New_York",
+					"label": "TZ",
+					"name": "TZ"
+				},
+				{
+					"default": "false",
+					"label": "SKIP_ARCHIVED_LOGS",
+					"name": "SKIP_ARCHIVED_LOGS",
+					"description": "Defaults to false. Set to true to skip archived logs, i.e. proxy-host*.gz"
+				},
+				{
+					"default": "false",
+					"label": "BASIC_AUTH",
+					"name": "BASIC_AUTH",
+					"description": "Defaults to false. Set to true to enable nginx basic authentication. Docker container needs to stopped or restarted each time this flag is modified. This allows for the .htpasswd file to be changed accordingly."
+				},
+				{
+					"default": "user",
+					"label": "BASIC_AUTH_USERNAME Ignore if Basic Auth set to false",
+					"name": "BASIC_AUTH_USERNAME",
+					"description": "(Optional) Requires BASIC_AUTH to bet set to true. Username for basic authentication."
+				},
+				{
+					"default": "Password",
+					"label": "BASIC_AUTH_PASSWORD Ignore if Basic Auth set to false",
+					"name": "BASIC_AUTH_PASSWORD",
+					"description": "(Optional) Requires BASIC_AUTH to bet set to true. Password for basic authentication."
+				}
+			],
+			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/proxy_mgr.png",
+			"name": "nginx-proxy-manager-sqllite-goaccess",
+			"platform": "linux",
+			"ports": [
+				"80:80/tcp",
+				"81:81/tcp",
+				"443:443/tcp",
+				"7880:7880/tcp"
+			],
+			"repository": {
+				"stackfile": "stack/nginx-proxy-manager-sqlite-goaccess.yml",
+				"url": "https://github.com/pi-hosted/pi-hosted"
+			},
+			"restart_policy": "unless-stopped",
+			"title": "Nginx Proxy Manager v2 with Sqlite and Goaccess Charts",
+			"type": 3,
+			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nginxproxymanager.com/\" target=\"_blank\">https://nginxproxymanager.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://nginxproxymanager.com/setup/#running-the-app\" target=\"_blank\">https://nginxproxymanager.com/setup/#running-the-app</a><br><h3><b>Pi-Hosted dedicated documentation: </b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/docs/nginx_proxy_manager.md\" target=\"_blank\">nginx_proxy_manager.md</a></h3><br><br><br><b>Youtube Video: </b><a href=https://www.youtube.com/watch?v=yl2Laxbqvo8&list=PL846hFPMqg3jwkxcScD1xw2bKXrJVvarc&index=10 target=\"_blank\">Novaspirit Tech - Installing Nginx Proxy Manager on Docker</a><br><br>"
+		},
+    {
+			"categories": [
+				"Other",
+				"Web",
+				"Tools"
+			],
+			"description": "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.  It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.",
+			"env": [
+				{
+					"default": "your_secret_goes_here",
+					"label": "NODE_RED_CREDENTIAL_SECRET",
+					"name": "NODE_RED_CREDENTIAL_SECRET"
+				},
+				{
+					"default": "America/New_York",
+					"label": "TZ",
+					"name": "TZ"
+				}
+			],
+			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/node-red.png",
+			"name": "node-red",
+			"platform": "linux",
+			"ports": [
+				"1880:1880/tcp"
+			],
+			"repository": {
+				"stackfile": "stack/node-red.yml",
+				"url": "https://github.com/pi-hosted/pi-hosted/"
+			},
+			"restart_policy": "unless-stopped",
+			"title": "Node Red",
+			"type": 3,
+			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nodered.org/\" target=\"_blank\">https://nodered.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://nodered.org/docs/getting-started/docker\" target=\"_blank\">https://nodered.org/docs/getting-started/docker</a><br><br><br>"
+		},
+    {
       "categories": [
         "Other"
       ],
@@ -921,109 +1053,6 @@
         },
         {
           "bind": "/portainer/Files/AppData/Config/PiHole/DNS",
-          "container": "/etc/dnsmasq.d"
-        }
-      ]
-    },
-    {
-      "categories": [
-        "Other",
-        "Tools"
-      ],
-      "description": "A Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole with both DoH (DNS over HTTPS) and DoT (DNS over TLS) clients.",
-      "image": "oijkn/pihole-doh-dot:latest",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/pihole_doh-dot.png",
-      "name": "pihole DoH/DoT",
-      "note": "When the installation is complete, navigate to your.ip.goes.here:1010/admin. Follow the article <a href='https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f'>here</a> if you run into issues binding to port 53.",
-      "platform": "linux",
-      "ports": [
-        "53:53/tcp",
-        "53:53/udp",
-        "67:67/udp",
-        "1010:80/tcp",
-        "4443:443/tcp"
-      ],
-      "restart_policy": "unless-stopped",
-      "title": "Pi-Hole DoH/DoT",
-      "type": 1,
-      "volumes": [
-        {
-          "bind": "/portainer/Files/AppData/Config/PiHole_DoH-DoT",
-          "container": "/etc/pihole"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Config/PiHole_DoH-DoT/DNS",
-          "container": "/etc/dnsmasq.d"
-        }
-      ]
-    },
-    {
-      "categories": [
-        "Other",
-        "Tools"
-      ],
-      "description": "A Linux network-level advertisement and Internet tracker blocking application which acts as a DNS sinkhole. This version has Ubound software installed on it so you don't need to rely on external DNS providers.",
-      "image": "cbcrowe/pihole-unbound:latest",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/pihole-unbound.png",
-      "name": "pihole-unbound",
-      "note": "When the installation is complete, navigate to your.ip.goes.here:1010/admin. Follow the article <a href='https://medium.com/@niktrix/getting-rid-of-systemd-resolved-consuming-port-53-605f0234f32f'>here</a> if you run into issues binding to port 53. For extra information on this container visit the mainteiner <a href='https://github.com/chriscrowe/docker-pihole-unbound/tree/master/one-container'>GitHub Page</a>. You can add ports: 5335 to access Ubound externally; 22 to enable SSH; 67 to use DHCP Server. Add those ports in Show advanced options.",
-      "platform": "linux",
-      "ports": [
-        "53:53/tcp",
-        "53:53/udp",
-        "1010:80/tcp",
-        "4443:443/tcp"
-      ],
-      "restart_policy": "unless-stopped",
-      "title": "Pi-Hole-Unbound",
-      "type": 1,
-      "env": [
-        {
-          "default": "192.168.0.X",
-          "label": "ServerIP",
-          "name": "ServerIP",
-          "description": "Insert the Raspberry Pi IP here"
-        },
-        {
-          "default": "Europe\\London",
-          "label": "TZ",
-          "name": "TZ"
-        },
-        {
-          "label": "DNSSEC",
-          "name": "DNSSEC",
-          "select": [
-            {
-              "text": "Enable DNSSEC",
-              "value": "true",
-              "default": true
-            },
-            {
-              "text": "Disable DNSSEC",
-              "value": "false"
-            }
-          ]
-        },
-        {
-          "default": "127.0.0.1#5335",
-          "label": "DNS1",
-          "name": "DNS1",
-          "preset": true
-        },
-        {
-          "default": "127.0.0.1#5335",
-          "label": "DNS2",
-          "name": "DNS2",
-          "preset": true
-        }
-      ],
-      "volumes": [
-        {
-          "bind": "/portainer/Files/AppData/Config/PiHole-Unbound",
-          "container": "/etc/pihole"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Config/PiHole-Unbound/DNS",
           "container": "/etc/dnsmasq.d"
         }
       ]
