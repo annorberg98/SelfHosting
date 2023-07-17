@@ -1759,12 +1759,10 @@
       "image": "stashapp/stash:latest",
       "logo": "https://avatars.githubusercontent.com/u/24867479?s=48&v=4",
       "name": "stashapp",
-      "note": "",
       "platform": "linux",
       "ports": [
         "9999:9999"
       ],
-      "command": "'stash'",
       "restart_policy": "unless-stopped",
       "title": "Stashapp",
       "type": 1,
