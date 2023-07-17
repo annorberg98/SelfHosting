@@ -1747,13 +1747,39 @@
       "description": "Self-hosted webapp written in Go which organizes and serves your porn.",
       "env": [
         {
-          "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-          "STASH_CACHE": "/cache/",
-          "STASH_CONFIG_FILE": "/root/.sstash/config.yml",
-          "STASH_GENERATED": "/generated/",
-          "STASH_METADATA": " /metadata/",
-          "STASH_PORT": "9999",
-          "STASH_STASH": "/data/"
+          "default": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "label": "PATH",
+          "name": "PATH"
+        },
+        {
+          "default": "/cache/",
+          "label": "STASH_CACHE",
+          "name": "STASH_CACHE"
+        },
+        {
+          "default": "/root/.sstash/config.yml",
+          "label": "STASH_CONFIG_FILE",
+          "name": "STASH_CONFIG_FILE"
+        },
+        {
+          "default": "/generated/",
+          "label": "STASH_GENERATED",
+          "name": "STASH_GENERATED"
+        },
+        {
+          "default": "/metadata/",
+          "label": "STASH_METADATA",
+          "name": "STASH_METADATA"
+        },
+        {
+          "default": "9999",
+          "label": "STASH_PORT",
+          "name": "STASH_PORT"
+        },
+        {
+          "default": "/data/",
+          "label": "STASH_STASH",
+          "name": "STASH_STASH"
         }
       ],
       "image": "stashapp/stash:latest",
