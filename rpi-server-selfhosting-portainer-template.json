@@ -6,6 +6,218 @@
         "Other",
         "Tools"
       ],
+      "description": "AdGuard Home is a network-wide software for blocking ads & tracking.",
+      "image": "adguard/adguardhome:latest",
+      "logo": "https://developer.asustor.com/uploadIcons/0020_999_1595573028_AdGuardhome_256.png",
+      "name": "Adguardhome",
+      "platform": "linux",
+      "ports": [
+        "53:53/tcp",
+        "53:53/udp",
+        "67:67/udp",
+        "80:80/tcp",
+        "443:443/tcp",
+        "443:443/udp",
+        "3001:3000/tcp",
+        "853:853/tcp",
+        "784:784/udp",
+        "853:853/udp",
+        "8853:8853/udp",
+        "5443:5443/tcp",
+        "5443:5443/udp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Adguardhome",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/AdguardHome/config",
+          "container": "/opt/adguardhome/conf"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/AdguardHome/work",
+          "container": "/opt/adguardhome/work"
+        }
+      ],
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://adguard.com/en/adguard-home/overview.html\" target=\"_blank\">https://adguard.com/en/adguard-home/overview.html</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/AdguardTeam/AdGuardHome/wiki/Docker\" target=\"_blank\">https://github.com/AdguardTeam/AdGuardHome/wiki/Docker</a><br><br><br>"
+    },
+    {
+      "categories": [
+        "Other",
+        "Games"
+      ],
+      "description": "This docker image provides the FoundryVTT system for hosting your own virtual table top games.",
+      "env": [
+        {
+          "default": "John",
+          "label": "Foundry Account Name",
+          "name": "FOUNDRY_USERNAME"
+        },
+        {
+          "default": "password",
+          "label": "Foundry Password",
+          "name": "FOUNDRY_PASSWORD"
+        },
+        {
+          "default": "changeme",
+          "label": "Instance Admin Password",
+          "name": "FOUNDRY_ADMIN_KEY"
+        },
+        {
+          "default": "true",
+          "label": "CONTAINER_PRESERVE_CONFIG",
+          "name": "CONTAINER_PRESERVE_CONFIG"
+        }
+      ],
+      "image": "felddy/foundryvtt:release",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/foundrylogo.png",
+      "name": "FoundryVTT",
+      "platform": "linux",
+      "ports": [
+        "30000:30000/tcp"
+      ],
+      "restart_polocy": "unless-stopped",
+      "title": "FoundryVTT Server",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/foundryvtt",
+          "container": "/data"
+        }
+      ],
+      "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://foundryvtt.com/\" target=\"_blank\">https://foundryvtt.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://hub.docker.com/r/felddy/foundryvtt\" target=\"_blank\">https://hub.docker.com/r/felddy/foundryvtt</a><br><br><br>"
+    },
+    {
+      "categories": [
+        "Downloaders",
+        "Tools"
+      ],
+      "description": "JDownloader docker image",
+      "env": [
+        {
+          "default": "",
+          "label": "MYJD_DEVICE_NAME",
+          "name": "MYJD_DEVICE_NAME"
+        },
+        {
+          "default": "",
+          "label": "MYJD_USER",
+          "name": "MYJD_USER"
+        },
+        {
+          "default": "",
+          "label": "MYJD_PASSWORD",
+          "name": "MYJD_PASSWORD"
+        }
+      ],
+      "image": "jaymoulin/jdownloader:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/jdownloader.png",
+      "name": "JDownloader",
+      "platform": "linux",
+      "ports": [
+        "3129:3129/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "JDownloader",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/JDownloader",
+          "container": "/opt/JDownloader/cfg"
+        },
+        {
+          "bind": "/portainer/Downloads",
+          "container": "/opt/JDownloader/Downloads"
+        }
+      ]
+    },
+    {
+      "categories": [
+        "Monitor",
+        "Tools"
+      ],
+      "description": "Monitor your Raspberry Pi and Dockers using Grafana developed by oijkn. Please download grafana configs from his git https://github.com/oijkn/Docker-Raspberry-PI-Monitoring",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/rpi_monitor.png",
+      "name": "RaspberryPi-Docker-Monitor",
+      "platform": "linux",
+      "ports": [
+        "3000:3000/tcp"
+      ],
+      "env": [
+        {
+          "default": "15d",
+          "label": "PROMETHEUS_RETENTION",
+          "name": "PROMETHEUS_RETENTION"
+        }
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Raspberry Pi Docker Monitor",
+      "type": 3,
+      "repository": {
+        "stackfile": "stack/raspberrypi-monitoring.yml",
+        "url": "https://github.com/pi-hosted/pi-hosted"
+      }
+    },
+    {
+      "categories": [
+        "Music"
+      ],
+      "description": "Self hosted Spotify tracking dashboard.",
+      "env": [
+        {
+          "default": "3081",
+          "label": "API Port",
+          "name": "__api_port__"
+        },
+        {
+          "default": "3080",
+          "label": "Client Port",
+          "name": "__client_port__"
+        },
+        {
+          "default": "http://192.168.X.Y:3080",
+          "label": "Client Endpoint",
+          "name": "__client_endpoint__",
+          "description": "If you have changed the default client port don't forget to change it here too."
+        },
+        {
+          "default": "http://192.168.X.Y:3081",
+          "label": "API Endpoint",
+          "name": "__api_endpoint__",
+          "description": "If you have changed the default API port don't forget to change it here too."
+        },
+        {
+          "default": "America/New_York",
+          "label": "TZ",
+          "name": "TZ"
+        },
+        {
+          "description": "Create a Spotify App and copy the Client ID: https://developer.spotify.com/dashboard/applications",
+          "label": "Spotify Client ID",
+          "name": "__your_spotify_client_id__"
+        },
+        {
+          "description": "Copy the Client Secret: https://developer.spotify.com/dashboard/applications",
+          "label": "Spotify Client Secret",
+          "name": "__your_spotify_secret__"
+        }
+      ],
+      "name": "Your Spotify",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/your-spotify.png",
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://github.com/Yooooomi/your_spotify\" target=\"_blank\">https://github.com/Yooooomi/your_spotify</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/Yooooomi/your_spotify#readme\" target=\"_blank\">https://github.com/Yooooomi/your_spotify#readme</a><br><br><br>Create a Spotify App here: https://developer.spotify.com/dashboard/applications. Don't forget adding Redirect URL: http://192.168.X.Y:3081/oauth/spotify/callback under edit settings of the dashboard.",
+      "platform": "linux",
+      "repository": {
+        "stackfile": "stack/your-spotify.yml",
+        "url": "https://github.com/pi-hosted/pi-hosted"
+      },
+      "title": "your-spotify",
+      "type": 3
+    },
+    {
+      "categories": [
+        "Other",
+        "Tools"
+      ],
       "description": "ArchiveBox is a powerful, self-hosted internet archiving solution to collect, save, and view sites you want to preserve offline.",
       "image": "archivebox/archivebox:master",
       "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/archivebox.png",
@@ -239,38 +451,38 @@
       "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://www.duplicati.com/\" target=\"_blank\">https://www.duplicati.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://docs.linuxserver.io/images/docker-duplicati\" target=\"_blank\">https://docs.linuxserver.io/images/docker-duplicati</a><br><br><br>"
     },
     {
-			"categories": [
-				"Other",
-				"Tools"
-			],
-			"description": "Eclipse Mosquitto is an open source message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.\r\nHave a look on https://mosquitto.org/man/mosquitto_passwd-1.html",
-			"image": "eclipse-mosquitto:latest",
-			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/eclipse-mosquitto.png",
-			"name": "eclipse-mosquitto",
-			"platform": "linux",
-			"ports": [
-				"1883:1883/tcp",
-				"9001:9001/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Eclipse Mosquitto MQTT",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/config",
-					"container": "/mosquitto/config"
-				},
-				{
-					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/data",
-					"container": "/mosquitto/data"
-				},
-				{
-					"bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/log",
-					"container": "/mosquitto/log"
-				}
-			],
-			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><br><h3><b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/tools/install_mosquitto.sh\" target=\"_blank\">Pre-installation script</a> must be RAN before you install: </b>wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/install_mosquitto.sh | bash</h3><br><br>"
-		},
+      "categories": [
+        "Other",
+        "Tools"
+      ],
+      "description": "Eclipse Mosquitto is an open source message broker that implements the MQTT protocol versions 5.0, 3.1.1 and 3.1. Mosquitto is lightweight and is suitable for use on all devices from low power single board computers to full servers.\r\nHave a look on https://mosquitto.org/man/mosquitto_passwd-1.html",
+      "image": "eclipse-mosquitto:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/eclipse-mosquitto.png",
+      "name": "eclipse-mosquitto",
+      "platform": "linux",
+      "ports": [
+        "1883:1883/tcp",
+        "9001:9001/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Eclipse Mosquitto MQTT",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/config",
+          "container": "/mosquitto/config"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/data",
+          "container": "/mosquitto/data"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/eclipse-mosquitto/log",
+          "container": "/mosquitto/log"
+        }
+      ],
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://mosquitto.org/\" target=\"_blank\">https://mosquitto.org/</a><br><br><h3><b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/tools/install_mosquitto.sh\" target=\"_blank\">Pre-installation script</a> must be RAN before you install: </b>wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/install_mosquitto.sh | bash</h3><br><br>"
+    },
     {
       "categories": [
         "Other",
@@ -297,85 +509,39 @@
     },
     {
       "categories": [
-        "Other",
-        "Games"
+        "Other"
       ],
-      "description": "This docker image provides the FoundryVTT system for hosting your own virtual table top games.",
+      "description": "A free, self-hostable rss aggregator…",
       "env": [
         {
-          "default": "John",
-          "label": "Foundry Account Name",
-          "name": "FOUNDRY_USERNAME"
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
         },
         {
-          "default": "password",
-          "label": "Foundry Password",
-          "name": "FOUNDRY_PASSWORD"
-        },
-        {
-          "default": "changeme",
-          "label": "Instance Admin Password",
-          "name": "FOUNDRY_ADMIN_KEY"
-        },
-        {
-          "default": "true",
-          "label": "CONTAINER_PRESERVE_CONFIG",
-          "name": "CONTAINER_PRESERVE_CONFIG"
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
         }
       ],
-      "image": "felddy/foundryvtt:release",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/foundrylogo.png",
-      "name": "FoundryVTT",
+      "image": "linuxserver/freshrss:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/freshrss-icon.png",
+      "name": "freshrss",
       "platform": "linux",
       "ports": [
-        "30000:30000/tcp"
+        "8132:80/tcp"
       ],
-      "restart_polocy": "unless-stopped",
-      "title": "FoundryVTT Server",
+      "restart_policy": "unless-stopped",
+      "title": "FreshRSS",
       "type": 1,
       "volumes": [
         {
-          "bind": "/portainer/Files/AppData/Config/foundryvtt",
-          "container": "/data"
+          "bind": "/portainer/Files/AppData/Config/freshrss",
+          "container": "/config"
         }
       ],
-      "note": "<h3>Template created by Pi-Hosted Series</h3><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://foundryvtt.com/\" target=\"_blank\">https://foundryvtt.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://hub.docker.com/r/felddy/foundryvtt\" target=\"_blank\">https://hub.docker.com/r/felddy/foundryvtt</a><br><br><br>"
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://www.freshrss.org/\" target=\"_blank\">https://www.freshrss.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/FreshRSS/FreshRSS/tree/edge/Docker\" target=\"_blank\">https://github.com/FreshRSS/FreshRSS/tree/edge/Docker</a><br><br><br>"
     },
-    {
-			"categories": [
-				"Other"
-			],
-			"description": "A free, self-hostable rss aggregator…",
-			"env": [
-				{
-					"default": "1000",
-					"label": "PUID",
-					"name": "PUID"
-				},
-				{
-					"default": "1000",
-					"label": "PGID",
-					"name": "PGID"
-				}
-			],
-			"image": "linuxserver/freshrss:latest",
-			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/freshrss-icon.png",
-			"name": "freshrss",
-			"platform": "linux",
-			"ports": [
-				"8132:80/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "FreshRSS",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/freshrss",
-					"container": "/config"
-				}
-			],
-			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://www.freshrss.org/\" target=\"_blank\">https://www.freshrss.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/FreshRSS/FreshRSS/tree/edge/Docker\" target=\"_blank\">https://github.com/FreshRSS/FreshRSS/tree/edge/Docker</a><br><br><br>"
-		},
     {
       "categories": [
         "Other",
@@ -590,45 +756,99 @@
     },
     {
       "categories": [
-        "Downloaders",
-        "Tools"
+        "Video",
+        "Music",
+        "Photos"
       ],
-      "description": "JDownloader docker image",
+      "description": "Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps.",
       "env": [
         {
-          "default": "",
-          "label": "MYJD_DEVICE_NAME",
-          "name": "MYJD_DEVICE_NAME"
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
         },
         {
-          "default": "",
-          "label": "MYJD_USER",
-          "name": "MYJD_USER"
+          "default": "100",
+          "label": "PGID",
+          "name": "PGID"
         },
         {
-          "default": "",
-          "label": "MYJD_PASSWORD",
-          "name": "MYJD_PASSWORD"
+          "label": "TZ",
+          "name": "TZ"
         }
       ],
-      "image": "jaymoulin/jdownloader:latest",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/jdownloader.png",
-      "name": "JDownloader",
+      "image": "lscr.io/linuxserver/jellyfin:latest",
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/jellyfin.png",
+      "name": "jellyfin",
       "platform": "linux",
       "ports": [
-        "3129:3129/tcp"
+        "8096:8096/tcp",
+        "8920:8920/tcp"
       ],
       "restart_policy": "unless-stopped",
-      "title": "JDownloader",
+      "title": "Jellyfin",
       "type": 1,
       "volumes": [
         {
-          "bind": "/portainer/Files/AppData/Config/JDownloader",
-          "container": "/opt/JDownloader/cfg"
+          "bind": "/portainer/Files/AppData/Config/Jelllyfin",
+          "container": "/config"
         },
         {
-          "bind": "/portainer/Downloads",
-          "container": "/opt/JDownloader/Downloads"
+          "bind": "/portainer/TV",
+          "container": "/data/tvshows"
+        },
+        {
+          "bind": "/portainer/Movies",
+          "container": "/data/movies"
+        }
+      ]
+    },
+    {
+      "categories": [
+        "Video",
+        "Music",
+        "Photos"
+      ],
+      "description": "Jellyfin is a Free Software Media System that puts you in control of managing and streaming your media. It is an alternative to the proprietary Emby and Plex, to provide media from a dedicated server to end-user devices via multiple apps.",
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "100",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
+      "image": "lscr.io/linuxserver/jellyfin:latest",
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/jellyfin.png",
+      "name": "jellyfin",
+      "platform": "linux",
+      "ports": [
+        "8096:8096/tcp",
+        "8920:8920/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Jellyfin",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/Jelllyfin",
+          "container": "/config"
+        },
+        {
+          "bind": "/portainer/TV",
+          "container": "/data/tvshows"
+        },
+        {
+          "bind": "/portainer/Movies",
+          "container": "/data/movies"
         }
       ]
     },
@@ -858,104 +1078,104 @@
       }
     },
     {
-			"categories": [
-				"Proxy",
-				"Tools"
-			],
-			"description": "Nginx Proxy Manager v2 with sqlite and Goaccess Charts enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.  Please see the install document at https://github.com/pi-hosted/pi-hosted/tree/master/docs installing the template",
-			"env": [
-				{
-					"default": "1000",
-					"label": "PUID",
-					"name": "PUID"
-				},
-				{
-					"default": "1000",
-					"label": "PGID",
-					"name": "PGID"
-				},
-				{
-					"default": "America/New_York",
-					"label": "TZ",
-					"name": "TZ"
-				},
-				{
-					"default": "false",
-					"label": "SKIP_ARCHIVED_LOGS",
-					"name": "SKIP_ARCHIVED_LOGS",
-					"description": "Defaults to false. Set to true to skip archived logs, i.e. proxy-host*.gz"
-				},
-				{
-					"default": "false",
-					"label": "BASIC_AUTH",
-					"name": "BASIC_AUTH",
-					"description": "Defaults to false. Set to true to enable nginx basic authentication. Docker container needs to stopped or restarted each time this flag is modified. This allows for the .htpasswd file to be changed accordingly."
-				},
-				{
-					"default": "user",
-					"label": "BASIC_AUTH_USERNAME Ignore if Basic Auth set to false",
-					"name": "BASIC_AUTH_USERNAME",
-					"description": "(Optional) Requires BASIC_AUTH to bet set to true. Username for basic authentication."
-				},
-				{
-					"default": "Password",
-					"label": "BASIC_AUTH_PASSWORD Ignore if Basic Auth set to false",
-					"name": "BASIC_AUTH_PASSWORD",
-					"description": "(Optional) Requires BASIC_AUTH to bet set to true. Password for basic authentication."
-				}
-			],
-			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/proxy_mgr.png",
-			"name": "nginx-proxy-manager-sqllite-goaccess",
-			"platform": "linux",
-			"ports": [
-				"80:80/tcp",
-				"81:81/tcp",
-				"443:443/tcp",
-				"7880:7880/tcp"
-			],
-			"repository": {
-				"stackfile": "stack/nginx-proxy-manager-sqlite-goaccess.yml",
-				"url": "https://github.com/pi-hosted/pi-hosted"
-			},
-			"restart_policy": "unless-stopped",
-			"title": "Nginx Proxy Manager v2 with Sqlite and Goaccess Charts",
-			"type": 3,
-			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nginxproxymanager.com/\" target=\"_blank\">https://nginxproxymanager.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://nginxproxymanager.com/setup/#running-the-app\" target=\"_blank\">https://nginxproxymanager.com/setup/#running-the-app</a><br><h3><b>Pi-Hosted dedicated documentation: </b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/docs/nginx_proxy_manager.md\" target=\"_blank\">nginx_proxy_manager.md</a></h3><br><br><br><b>Youtube Video: </b><a href=https://www.youtube.com/watch?v=yl2Laxbqvo8&list=PL846hFPMqg3jwkxcScD1xw2bKXrJVvarc&index=10 target=\"_blank\">Novaspirit Tech - Installing Nginx Proxy Manager on Docker</a><br><br>"
-		},
+      "categories": [
+        "Proxy",
+        "Tools"
+      ],
+      "description": "Nginx Proxy Manager v2 with sqlite and Goaccess Charts enables you to easily forward to your websites running at home or otherwise, including free SSL, without having to know too much about Nginx or Letsencrypt.  Please see the install document at https://github.com/pi-hosted/pi-hosted/tree/master/docs installing the template",
+      "env": [
+        {
+          "default": "1000",
+          "label": "PUID",
+          "name": "PUID"
+        },
+        {
+          "default": "1000",
+          "label": "PGID",
+          "name": "PGID"
+        },
+        {
+          "default": "America/New_York",
+          "label": "TZ",
+          "name": "TZ"
+        },
+        {
+          "default": "false",
+          "label": "SKIP_ARCHIVED_LOGS",
+          "name": "SKIP_ARCHIVED_LOGS",
+          "description": "Defaults to false. Set to true to skip archived logs, i.e. proxy-host*.gz"
+        },
+        {
+          "default": "false",
+          "label": "BASIC_AUTH",
+          "name": "BASIC_AUTH",
+          "description": "Defaults to false. Set to true to enable nginx basic authentication. Docker container needs to stopped or restarted each time this flag is modified. This allows for the .htpasswd file to be changed accordingly."
+        },
+        {
+          "default": "user",
+          "label": "BASIC_AUTH_USERNAME Ignore if Basic Auth set to false",
+          "name": "BASIC_AUTH_USERNAME",
+          "description": "(Optional) Requires BASIC_AUTH to bet set to true. Username for basic authentication."
+        },
+        {
+          "default": "Password",
+          "label": "BASIC_AUTH_PASSWORD Ignore if Basic Auth set to false",
+          "name": "BASIC_AUTH_PASSWORD",
+          "description": "(Optional) Requires BASIC_AUTH to bet set to true. Password for basic authentication."
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/proxy_mgr.png",
+      "name": "nginx-proxy-manager-sqllite-goaccess",
+      "platform": "linux",
+      "ports": [
+        "80:80/tcp",
+        "81:81/tcp",
+        "443:443/tcp",
+        "7880:7880/tcp"
+      ],
+      "repository": {
+        "stackfile": "stack/nginx-proxy-manager-sqlite-goaccess.yml",
+        "url": "https://github.com/pi-hosted/pi-hosted"
+      },
+      "restart_policy": "unless-stopped",
+      "title": "Nginx Proxy Manager v2 with Sqlite and Goaccess Charts",
+      "type": 3,
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nginxproxymanager.com/\" target=\"_blank\">https://nginxproxymanager.com/</a><br><b>Official Docker Documentation: </b><a href=\"https://nginxproxymanager.com/setup/#running-the-app\" target=\"_blank\">https://nginxproxymanager.com/setup/#running-the-app</a><br><h3><b>Pi-Hosted dedicated documentation: </b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/docs/nginx_proxy_manager.md\" target=\"_blank\">nginx_proxy_manager.md</a></h3><br><br><br><b>Youtube Video: </b><a href=https://www.youtube.com/watch?v=yl2Laxbqvo8&list=PL846hFPMqg3jwkxcScD1xw2bKXrJVvarc&index=10 target=\"_blank\">Novaspirit Tech - Installing Nginx Proxy Manager on Docker</a><br><br>"
+    },
     {
-			"categories": [
-				"Other",
-				"Web",
-				"Tools"
-			],
-			"description": "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.  It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.",
-			"env": [
-				{
-					"default": "your_secret_goes_here",
-					"label": "NODE_RED_CREDENTIAL_SECRET",
-					"name": "NODE_RED_CREDENTIAL_SECRET"
-				},
-				{
-					"default": "America/New_York",
-					"label": "TZ",
-					"name": "TZ"
-				}
-			],
-			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/node-red.png",
-			"name": "node-red",
-			"platform": "linux",
-			"ports": [
-				"1880:1880/tcp"
-			],
-			"repository": {
-				"stackfile": "stack/node-red.yml",
-				"url": "https://github.com/pi-hosted/pi-hosted/"
-			},
-			"restart_policy": "unless-stopped",
-			"title": "Node Red",
-			"type": 3,
-			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nodered.org/\" target=\"_blank\">https://nodered.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://nodered.org/docs/getting-started/docker\" target=\"_blank\">https://nodered.org/docs/getting-started/docker</a><br><br><br>"
-		},
+      "categories": [
+        "Other",
+        "Web",
+        "Tools"
+      ],
+      "description": "Node-RED is a programming tool for wiring together hardware devices, APIs and online services in new and interesting ways.  It provides a browser-based editor that makes it easy to wire together flows using the wide range of nodes in the palette that can be deployed to its runtime in a single-click.",
+      "env": [
+        {
+          "default": "your_secret_goes_here",
+          "label": "NODE_RED_CREDENTIAL_SECRET",
+          "name": "NODE_RED_CREDENTIAL_SECRET"
+        },
+        {
+          "default": "America/New_York",
+          "label": "TZ",
+          "name": "TZ"
+        }
+      ],
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/node-red.png",
+      "name": "node-red",
+      "platform": "linux",
+      "ports": [
+        "1880:1880/tcp"
+      ],
+      "repository": {
+        "stackfile": "stack/node-red.yml",
+        "url": "https://github.com/pi-hosted/pi-hosted/"
+      },
+      "restart_policy": "unless-stopped",
+      "title": "Node Red",
+      "type": 3,
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://nodered.org/\" target=\"_blank\">https://nodered.org/</a><br><b>Official Docker Documentation: </b><a href=\"https://nodered.org/docs/getting-started/docker\" target=\"_blank\">https://nodered.org/docs/getting-started/docker</a><br><br><br>"
+    },
     {
       "categories": [
         "Other"
@@ -1129,30 +1349,39 @@
     },
     {
       "categories": [
-        "Monitor",
-        "Tools"
+        "Tools",
+        "Web",
+        "Other"
       ],
-      "description": "Monitor your Raspberry Pi and Dockers using Grafana developed by oijkn. Please download grafana configs from his git https://github.com/oijkn/Docker-Raspberry-PI-Monitoring",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/rpi_monitor.png",
-      "name": "RaspberryPi-Docker-Monitor",
-      "platform": "linux",
-      "ports": [
-        "3000:3000/tcp"
-      ],
+      "description": "Run a Speedtest every hour and graph the results.  See https://hub.docker.com/r/henrywhitaker3/speedtest-tracker/tags for arch options",
       "env": [
         {
-          "default": "15d",
-          "label": "PROMETHEUS_RETENTION",
-          "name": "PROMETHEUS_RETENTION"
+          "default": "latest-arm",
+          "label": "arch",
+          "name": "arch"
+        },
+        {
+          "default": "true",
+          "label": "OOKLA_EULA_GDPR",
+          "name": "OOKLA_EULA_GDPR"
         }
       ],
+      "image": "henrywhitaker3/speedtest-tracker:dev-arm",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/speedtest-tracker.png",
+      "name": "speedtest-tracker",
+      "platform": "linux",
+      "ports": [
+        "8765:80/tcp"
+      ],
       "restart_policy": "unless-stopped",
-      "title": "Raspberry Pi Docker Monitor",
-      "type": 3,
-      "repository": {
-        "stackfile": "stack/raspberrypi-monitoring.yml",
-        "url": "https://github.com/pi-hosted/pi-hosted"
-      }
+      "title": "Speedtest Tracker",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/speedtest-tracker",
+          "container": "/config"
+        }
+      ]
     },
     {
       "categories": [
@@ -1228,42 +1457,6 @@
     },
     {
       "categories": [
-        "Tools",
-        "Web",
-        "Other"
-      ],
-      "description": "Run a Speedtest every hour and graph the results.  See https://hub.docker.com/r/henrywhitaker3/speedtest-tracker/tags for arch options",
-      "env": [
-        {
-          "default": "latest-arm",
-          "label": "arch",
-          "name": "arch"
-        },
-        {
-          "default": "true",
-          "label": "OOKLA_EULA_GDPR",
-          "name": "OOKLA_EULA_GDPR"
-        }
-      ],
-      "image": "henrywhitaker3/speedtest-tracker:dev-arm",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/speedtest-tracker.png",
-      "name": "speedtest-tracker",
-      "platform": "linux",
-      "ports": [
-        "8765:80/tcp"
-      ],
-      "restart_policy": "unless-stopped",
-      "title": "Speedtest Tracker",
-      "type": 1,
-      "volumes": [
-        {
-          "bind": "/portainer/Files/AppData/Config/speedtest-tracker",
-          "container": "/config"
-        }
-      ]
-    },
-    {
-      "categories": [
         "Backup",
         "Cloud",
         "Other",
@@ -1305,44 +1498,44 @@
       ]
     },
     {
-			"categories": [
-				"Proxy",
-				"Security",
-				"Tools"
-			],
-			"description": "Cloud-Native Networking Stack That Just Works.",
-			"image": "traefik:latest",
-			"logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/traefik.png",
-			"name": "traefik",
-			"note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://doc.traefik.io/traefik/\" target=\"_blank\">https://doc.traefik.io/traefik/</a><br><b>Official Docker Documentation: </b><a href=\"https://doc.traefik.io/traefik/getting-started/install-traefik/\" target=\"_blank\">https://doc.traefik.io/traefik/getting-started/install-traefik/</a><br><br><h3><b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/tools/traefik.sh\" target=\"_blank\">Pre-installation script</a> must be RAN before you install: </b>wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/traefik.sh | bash</h3><br><br>A simple and lightweight reverse proxy",
-			"platform": "linux",
-			"ports": [
-				"80:80/tcp",
-				"443:443/tcp",
-				"8080:8080/tcp"
-			],
-			"restart_policy": "unless-stopped",
-			"title": "Traefik",
-			"type": 1,
-			"volumes": [
-				{
-					"bind": "/portainer/Files/AppData/Config/traefik/traefik.yml",
-					"container": "/traefik.yml"
-				},
-				{
-					"bind": "/portainer/Files/AppData/Config/traefik/config.yml",
-					"container": "/config.yml"
-				},
-				{
-					"bind": "/portainer/Files/AppData/Config/traefik/acme.json",
-					"container": "/acme.json"
-				},
-				{
-					"bind": "/var/run/docker.sock",
-					"container": "/var/run/docker.sock"
-				}
-			]
-		},
+      "categories": [
+        "Proxy",
+        "Security",
+        "Tools"
+      ],
+      "description": "Cloud-Native Networking Stack That Just Works.",
+      "image": "traefik:latest",
+      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/traefik.png",
+      "name": "traefik",
+      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://doc.traefik.io/traefik/\" target=\"_blank\">https://doc.traefik.io/traefik/</a><br><b>Official Docker Documentation: </b><a href=\"https://doc.traefik.io/traefik/getting-started/install-traefik/\" target=\"_blank\">https://doc.traefik.io/traefik/getting-started/install-traefik/</a><br><br><h3><b><a href=\"https://github.com/pi-hosted/pi-hosted/blob/master/tools/traefik.sh\" target=\"_blank\">Pre-installation script</a> must be RAN before you install: </b>wget -qO- https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/tools/traefik.sh | bash</h3><br><br>A simple and lightweight reverse proxy",
+      "platform": "linux",
+      "ports": [
+        "80:80/tcp",
+        "443:443/tcp",
+        "8080:8080/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "Traefik",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/traefik.yml",
+          "container": "/traefik.yml"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/config.yml",
+          "container": "/config.yml"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Config/traefik/acme.json",
+          "container": "/acme.json"
+        },
+        {
+          "bind": "/var/run/docker.sock",
+          "container": "/var/run/docker.sock"
+        }
+      ]
+    },
     {
       "categories": [
         "Other"
@@ -1374,45 +1567,6 @@
         {
           "bind": "/portainer/Files/AppData/Config/tt-rss",
           "container": "/config"
-        }
-      ]
-    },
-    {
-      "categories": [
-        "Proxy",
-        "Security",
-        "Tools"
-      ],
-      "description": "Cloud-Native Networking Stack That Just Works.",
-      "image": "traefik:latest",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/traefik.png",
-      "name": "traefik",
-      "note": "A simple and lightweight reverse proxy",
-      "platform": "linux",
-      "ports": [
-        "80:80/tcp",
-        "443:443/tcp",
-        "8080:8080/tcp"
-      ],
-      "restart_policy": "unless-stopped",
-      "title": "Traefik",
-      "type": 1,
-      "volumes": [
-        {
-          "bind": "/portainer/Files/AppData/Config/traefik/traefik.yml",
-          "container": "/traefik.yml"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Config/traefik/config.yml",
-          "container": "/config.yml"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Config/traefik/acme.json",
-          "container": "/acme.json"
-        },
-        {
-          "bind": "/var/run/docker.sock",
-          "container": "/var/run/docker.sock"
         }
       ]
     },
@@ -1517,45 +1671,6 @@
     {
       "categories": [
         "Other",
-        "Downloaders"
-      ],
-      "description": "YoutubeDL-Material is a Material Design frontend for youtube-dl. It's coded using Angular 9 for the frontend, and Node.js on the backend.",
-      "image": "tzahi12345/youtubedl-material:latest",
-      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ytdlm.png",
-      "name": "youtubedl-material",
-      "platform": "linux",
-      "ports": [
-        "17442:17442/tcp"
-      ],
-      "restart_policy": "unless-stopped",
-      "title": "YouTubeDL-Material",
-      "type": 1,
-      "volumes": [
-        {
-          "bind": "/portainer/Files/AppData/Config/YTDLM",
-          "container": "/app/appdata"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Youtube/Video",
-          "container": "/app/video"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Youtube/Subscriptions",
-          "container": "/app/subscriptions"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Youtube/Users",
-          "container": "/app/users"
-        },
-        {
-          "bind": "/portainer/Files/AppData/Youtube/Audio",
-          "container": "/app/audio"
-        }
-      ]
-    },
-    {
-      "categories": [
-        "Other",
         "CMD",
         "Web",
         "Tools"
@@ -1627,58 +1742,42 @@
     },
     {
       "categories": [
-        "Music"
+        "Other",
+        "Downloaders"
       ],
-      "description": "Self hosted Spotify tracking dashboard.",
-      "env": [
-        {
-          "default": "3081",
-          "label": "API Port",
-          "name": "__api_port__"
-        },
-        {
-          "default": "3080",
-          "label": "Client Port",
-          "name": "__client_port__"
-        },
-        {
-          "default": "http://192.168.X.Y:3080",
-          "label": "Client Endpoint",
-          "name": "__client_endpoint__",
-          "description": "If you have changed the default client port don't forget to change it here too."
-        },
-        {
-          "default": "http://192.168.X.Y:3081",
-          "label": "API Endpoint",
-          "name": "__api_endpoint__",
-          "description": "If you have changed the default API port don't forget to change it here too."
-        },
-        {
-          "default": "America/New_York",
-          "label": "TZ",
-          "name": "TZ"
-        },
-        {
-          "description": "Create a Spotify App and copy the Client ID: https://developer.spotify.com/dashboard/applications",
-          "label": "Spotify Client ID",
-          "name": "__your_spotify_client_id__"
-        },
-        {
-          "description": "Copy the Client Secret: https://developer.spotify.com/dashboard/applications",
-          "label": "Spotify Client Secret",
-          "name": "__your_spotify_secret__"
-        }
-      ],
-      "name": "Your Spotify",
-      "logo": "https://raw.githubusercontent.com/pi-hosted/pi-hosted/master/images/your-spotify.png",
-      "note": "<b>Template created by Pi-Hosted Series</b><br><b>Check our Github page: <a href=\"https://github.com/pi-hosted/pi-hosted\" target=\"_blank\">https://github.com/pi-hosted/pi-hosted</a></b><br><br><b>Official Webpage: </b><a href=\"https://github.com/Yooooomi/your_spotify\" target=\"_blank\">https://github.com/Yooooomi/your_spotify</a><br><b>Official Docker Documentation: </b><a href=\"https://github.com/Yooooomi/your_spotify#readme\" target=\"_blank\">https://github.com/Yooooomi/your_spotify#readme</a><br><br><br>Create a Spotify App here: https://developer.spotify.com/dashboard/applications. Don't forget adding Redirect URL: http://192.168.X.Y:3081/oauth/spotify/callback under edit settings of the dashboard.",
+      "description": "YoutubeDL-Material is a Material Design frontend for youtube-dl. It's coded using Angular 9 for the frontend, and Node.js on the backend.",
+      "image": "tzahi12345/youtubedl-material:latest",
+      "logo": "https://raw.githubusercontent.com/SelfhostedPro/selfhosted_templates/master/Images/ytdlm.png",
+      "name": "youtubedl-material",
       "platform": "linux",
-      "repository": {
-        "stackfile": "stack/your-spotify.yml",
-        "url": "https://github.com/pi-hosted/pi-hosted"
-      },
-      "title": "your-spotify",
-      "type": 3
+      "ports": [
+        "17442:17442/tcp"
+      ],
+      "restart_policy": "unless-stopped",
+      "title": "YouTubeDL-Material",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/portainer/Files/AppData/Config/YTDLM",
+          "container": "/app/appdata"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Video",
+          "container": "/app/video"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Subscriptions",
+          "container": "/app/subscriptions"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Users",
+          "container": "/app/users"
+        },
+        {
+          "bind": "/portainer/Files/AppData/Youtube/Audio",
+          "container": "/app/audio"
+        }
+      ]
     }
   ]
 }
