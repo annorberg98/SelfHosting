@@ -1742,6 +1742,61 @@
     },
     {
       "categories": [
+        "Media"
+      ],
+      "description": "Self-hosted webapp written in Go which organizes and serves your porn.",
+      "env": [
+        {
+          "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "STASH_CACHE": "/cache/",
+          "STASH_CONFIG_FILE": "/root/.sstash/config.yml",
+          "STASH_GENERATED": "/generated/",
+          "STASH_METADATA": " /metadata/",
+          "STASH_PORT": "9999",
+          "STASH_STASH": "/data/"
+        }
+      ],
+      "image": "stashapp/stash:latest",
+      "logo": "https://avatars.githubusercontent.com/u/24867479?s=48&v=4",
+      "name": "stashapp",
+      "note": "",
+      "platform": "linux",
+      "ports": [
+        "9999:9999"
+      ],
+      "command": "'stash'",
+      "restart_policy": "unless-stopped",
+      "title": "Stashapp",
+      "type": 1,
+      "volumes": [
+        {
+          "bind": "/stashapp/cache",
+          "container": "/cache"
+        },
+        {
+          "bind": "/media/usb/Porn",
+          "container": "/data"
+        },
+        {
+          "bind": "/etc/localtime",
+          "container": "/etc/localtime"
+        },
+        {
+          "bind": "/stashapp/generated",
+          "container": "/generated"
+        },
+        {
+          "bind": "/stashapp/metadata",
+          "container": "/metadata"
+        },
+        {
+          "bind": "/stashapp/config",
+          "container": "/root/.stash"
+        }   
+      ]
+    },
+    {
+      "categories": [
         "Other",
         "Downloaders"
       ],
