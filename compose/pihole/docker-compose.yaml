@@ -1,0 +1,42 @@
+services:
+  pihole:
+    container_name: "pihole"
+    entrypoint:
+      - "/s6-init"
+    environment:
+      - "PATH=/opt/pihole:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "phpver=php"
+      - "PHP_ERROR_LOG=/var/log/lighttpd/error-pihole.log"
+      - "IPv6=True"
+      - "S6_KEEP_ENV=1"
+      - "S6_BEHAVIOUR_IF_STAGE2_FAILS=2"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "FTLCONF_LOCAL_IPV4=0.0.0.0"
+      - "FTL_CMD=no-daemon"
+      - "DNSMASQ_USER=pihole"
+    image: "pihole/pihole:latest"
+    ipc: "private"
+    labels:
+      org.opencontainers.image.created: "2023-05-30T18:51:05.660Z"
+      org.opencontainers.image.description: "Pi-hole in a docker container"
+      org.opencontainers.image.licenses: ""
+      org.opencontainers.image.revision: "37bd3d2f0f9321211d9370fc96b7d06325cee887"
+      org.opencontainers.image.source: "https://github.com/pi-hole/docker-pi-hole"
+      org.opencontainers.image.title: "docker-pi-hole"
+      org.opencontainers.image.url: "https://github.com/pi-hole/docker-pi-hole"
+      org.opencontainers.image.version: "2023.05.2"
+    logging:
+      driver: "json-file"
+      options: {}
+    network_mode: "bridge"
+    ports:
+      - "4443:443/tcp"
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "1010:80/tcp"
+    restart: "unless-stopped"
+    volumes:
+      - "/portainer/Files/AppData/Config/PiHole/DNS:/etc/dnsmasq.d"
+      - "/portainer/Files/AppData/Config/PiHole:/etc/pihole"
+version: "3.6"
