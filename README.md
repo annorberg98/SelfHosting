@@ -20,6 +20,7 @@ I use [Portainer](https://github.com/portainer/portainer) to manage all my conta
 | Mealie | Recepie management and organization |
 | Uptime Kuma | Uptime monitoring of Services |
 | Grafana | Monitoring of system resources |
+| Homepage | Application Dashboard |
 
 \* Currently phasing out in favour of Jellyfin
  
