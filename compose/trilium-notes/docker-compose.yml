@@ -1,0 +1,16 @@
+version: '2.1'
+
+name: trilium-notes
+services:
+  trilium:
+    image: zadam/trilium:latest
+    restart: unless-stopped
+    #ports:
+    #  - "8080:8080"
+    volumes:
+      - /portainer/Files/AppData/Config/trilium:/home/node/trilium-data
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.trilium.entrypoints: "web"
+      traefik.http.routers.trilium.rule: "Host(`trilium.rpi-clu-001.local`)"
+    network_mode: "bridge"
