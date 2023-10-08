@@ -1,0 +1,19 @@
+version: "2.1"
+name: freshrss
+services:
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: freshrss
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /portainer/Files/AppData/Config/freshrss:/config
+    #ports:
+    #  - 8132:80
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.freshrss.entrypoints=web
+      - traefik.http.routers.freshrss.rule=Host(`rss.rpi-clu-001.local`)
