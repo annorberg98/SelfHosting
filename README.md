@@ -10,19 +10,17 @@ I use [Portainer](https://github.com/portainer/portainer) to manage all my conta
 | tools | Contains varios scripts for intsalling or updating | 
 
 ## Current Setup
-3x Rasperry Pi 4 Model B 4GB
+1x Rasperry Pi 4 Model B 4GB
+1x Rasperry Pi 5 4GB
 
-| Container | Usage | 
-| --- | --- | 
-| PiHole | Used as DNS and a network-wide Ad blocker | 
-| Traefik | Reverse Proxy and Load Balancer |
-| Plex* | Organization and streaming of local media | 
-| Mealie | Recepie management and organization |
-| Uptime Kuma | Uptime monitoring of Services |
-| Grafana | Monitoring of system resources |
-| Homepage | Application Dashboard |
-
-\* Currently phasing out in favour of Jellyfin
+| Container | Usage | GitHub |
+| --- | --- | --- |
+| PiHole | Used as DNS and a network-wide Ad blocker | [pihole/pihole](https://github.com/pi-hole/pi-hole) |
+| Traefik | Reverse Proxy and Load Balancer | [traefik/traefik](https://github.com/traefik/traefik) |
+| Mealie | Recepie management and organization | [mealie-recipes/mealie](https://github.com/mealie-recipes/mealie) |
+| Uptime Kuma | Uptime monitoring of Services | [louislam/uptime-kuma](https://github.com/louislam/uptime-kuma) |
+| Grafana | Monitoring of system resources | [grafana/grafana](https://github.com/grafana/grafana) |
+| Homepage | Application Dashboard | [gethomepage/homepage](https://github.com/gethomepage/homepage) |
  
 
 ### Portainer Templates
