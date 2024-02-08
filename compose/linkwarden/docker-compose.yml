@@ -1,0 +1,29 @@
+version: "3.5"
+name: linkwarden
+services:
+  postgres:
+    container_name: linkwarden_progress
+    image: postgres
+    env_file: .env
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    network_mode: bridge
+  linkwarden:
+    container_name: linkwarden_web
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres
+    restart: always
+    image: ghcr.io/linkwarden/linkwarden:latest
+    #ports:
+    #  - 3200:3000
+    volumes:
+      - ./data:/data/data
+    depends_on:
+      - postgres
+    network_mode: bridge
+    labels:
+      traefik.enable: "true"
+      traefik.http.routers.linkwarden.entrypoints: "web"
+      traefik.http.routers.linkwarden.rule: "Host(`linkwarden.rpi-clu-001.local`)"
