@@ -1,0 +1,237 @@
+###########################################################################
+###########################################################################
+version: "3.7"
+
+networks:
+  media-network:
+    name: media-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.28.10.0/24
+        gateway: 172.28.10.1
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Gluetun (qmcgaw)
+##  Function: VPN Client
+##
+##  Documentation: https://github.com/qdm12/gluetun/wiki
+##
+###########################################################################
+###########################################################################
+services:
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - "8888:8888/tcp"                         # Gluetun Local Network HTTP proxy
+      - "8388:8388/tcp"                         # Gluetun Local Network Shadowsocks
+      - "8388:8388/udp"                         # Gluetun Local Network Shadowsocks
+      - "8200:8200"   # WebUI Portal: qBittorrent
+      - "6881:6881/tcp"        # Transmission Torrent Port TCP
+      - "6881:6881/udp"        # Transmission Torrent Port UDP
+
+    volumes:
+      - /volume2/docker/gluetun:/gluetun
+    environment:
+      - PUID=1026
+      - PGID=10
+      - TZ=Europe/Stockholm
+      - VPN_SERVICE_PROVIDER=mullvad
+      - OPENVPN_USER=
+      #- OPENVPN_PASSWORD=${VPN_PASSWORD:?err}
+      - SERVER_REGION=Sweden
+      #- SERVER_CITIES=${SERVER_CITIES}
+      #- SERVER_HOSTNAMES=${SERVER_HOSTNAMES}
+      #- FIREWALL_OUTBOUND_SUBNETS=${LOCAL_SUBNET:?err}
+      #- OPENVPN_CUSTOM_CONFIG=${OPENVPN_CUSTOM_CONFIG}
+      - VPN_TYPE=openvpn
+      #- VPN_ENDPOINT_IP=${VPN_ENDPOINT_IP}
+      #- VPN_ENDPOINT_PORT=${VPN_ENDPOINT_PORT}
+      #- WIREGUARD_PUBLIC_KEY=${WIREGUARD_PUBLIC_KEY}
+      #- WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+      #- WIREGUARD_PRESHARED_KEY=${WIREGUARD_PRESHARED_KEY}
+      #- WIREGUARD_ADDRESSES=${WIREGUARD_ADDRESSES}
+      #- HTTPPROXY=on
+      #- SHADOWSOCKS=on
+
+# NOTE: Gluetun VPN container MUST ONLY connect to the media-network
+
+    networks:
+      - media-network
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Bazarr (LinuxServer.io)
+##  Function: Download subtitles for Radarr and Sonarr
+##
+##  Documentation: https://docs.linuxserver.io/images/volume2/docker-bazarr
+##
+###########################################################################
+###########################################################################
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/bazarr:/config
+      - /volume1/media-stack:/data
+    ports:
+      - "6767:6767"
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Stockholm
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:bazarr
+      - TP_THEME=nord
+    networks:
+      - media-network
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Jellyseerr (fallenbagel)
+##  Function: Media Request Manager
+##
+##  Documentation: https://hub.docker.com/r/fallenbagel/jellyseerr
+##
+###########################################################################
+###########################################################################
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/jellyseerr:/app/config
+    ports:
+      - "5055:5055"
+    environment:
+      - PUID=1026
+      - PGID=100
+      - UMASK=0077
+      - TZ=Europe/Stockholm
+    networks:
+      - media-network
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Prowlarr (LinuxServer.io)
+##  Function: Indexer and Search Manager
+##
+##  Documentation: https://docs.linuxserver.io/images/volume2/docker-prowlarr
+##
+###########################################################################
+###########################################################################
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/prowlarr/:/config
+    ports:
+      - "9696:9696"
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Stockholm
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:prowlarr
+      - TP_THEME=nord
+    networks:
+      - media-network
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: qBittorrent (LinuxServer.io)
+##  Function: Torrent Download Client
+##
+##  Documentation: https://docs.linuxserver.io/images/volume2/docker-qbittorrent
+##
+###########################################################################
+###########################################################################
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/qbittorrent:/config
+      - /volume1/media-stack:/data
+    environment:
+      - PUID=1026
+      - PGID=100
+      - UMASK=0077
+      - TZ=Europe/Stockholm
+      - WEBUI_PORT=8200
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:qbittorrent
+      - TP_THEME=nord
+
+## Do Not Change Network for qBittorrent
+## qBittorrent MUST always use a VPN / Secure Internet connection
+
+    network_mode: "service:gluetun"
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Radarr (LinuxServer.io)
+##  Function: Movie Library Manager
+##
+##  Documentation: https://docs.linuxserver.io/images/volume2/docker-radarr
+##
+###########################################################################
+###########################################################################
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/radarr:/config
+      - /volume1/media-stack:/data
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Stockholm
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:radarr
+      - TP_THEME=nord
+    networks:
+      - media-network
+
+###########################################################################
+###########################################################################
+##
+##  Docker Compose File: Sonarr (LinuxServer.io)
+##  Function: Series Library Manager (TV Shows)
+##
+##  Documentation: https://docs.linuxserver.io/images/volume2/docker-sonarr
+##
+###########################################################################
+###########################################################################
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    restart: unless-stopped
+    volumes:
+      - /volume2/docker/sonarr:/config
+      - /volume1/media-stack:/data
+    ports:
+      - "8989:8989"
+    environment:
+      - PUID=1026
+      - PGID=100
+      - TZ=Europe/Stockholm
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:sonarr
+      - TP_THEME=nord
+    networks:
+      - media-network
