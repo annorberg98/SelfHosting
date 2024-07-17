@@ -1,0 +1,43 @@
+- name: Install dependencies
+  apt:
+    force_apt_get: yes
+      - gnup2
+      - software-properties-common
+
+- name: Add Docker apt key
+  ansible.builtin.apt_key:
+    url: https://download.docker.com/linux/raspbian/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+
+- name: Add Docker apt repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/raspbian {{ ansible_distribution_release }} stable
+    filename: docker
+
+- name: Install Docker
+  apt:
+    force_apt_get: yes
+    name:
+      - docker-ce:armhf
+      - python3-setuptools
+      - python3-pip
+    install_recommends: no
+
+- name: Install Docker SDK for python
+  pip:
+    name: docker
+
+#- name: Enable Docker IPv6
+#  copy:
+#    dest: /etc/docker/daemon.json
+#    mode: 0600
+#    content: |
+#      {
+#        "ipv6": true,
+#        "fixed-cidr-v6": "2001:db8:1::/64"
+#      }
+#  notify: Restart Docker
+
+- name: Flush handlers
+  meta: flush_handlers
+    
