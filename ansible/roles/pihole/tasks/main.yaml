@@ -1,0 +1,48 @@
+- name: Create pihole directory
+  file:
+    path: "/home/{{ ansible_user }}/pihole"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    state: directory
+    mode: 0755
+
+- name: Determine Pi-hole host IPs (HA mode)
+  set_fact:
+    pihole_local_ipv4: "{{ pihole_vip_ipv4.split('/')[0] }}"
+    #pihole_local_ipv6: "{{ pihole_vip_ipv6.split('/')[0] }}"
+    execution_mode: "HA setup with keepalived"
+  when: pihole_ha_mode
+
+
+- name: Determine Pi-hole host IPs (single mode)
+  set_fact:
+    pihole_local_ipv4: "{{ ansible_host }}"
+    #pihole_local_ipv6: "{{ ipv6 }}"
+    execution_mode: "single node setup"
+  when: not pihole_ha_mode
+
+- name: Start/Update pihole container
+  command: docker-compose -f ../compose/pihole/dockere-compose.yaml up -d
+  args:
+    chdir: ../compose/pihole/
+
+- name: Check pihole container
+  uri:
+    url: http://localhost:1010/admin
+  register: result
+  until: result.status == 200
+  retries: 5
+  delay: 10
+
+- name: Remove old image versions
+  docker_prune:
+    images: yes
+    images_filters:
+      dangling: false
+
+- name: INFORMATION
+  debug:
+    msg:
+      - "In the {{ execution_mode }} make sure to point your DNS server settings here:"
+      - "DNSv4: {{ pihole_local_ipv4 }}"
+      #- "DNSv6: {{ pihole_local_ipv6 }}"
