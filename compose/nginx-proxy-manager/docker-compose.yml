@@ -9,5 +9,5 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - /portainer/Files/AppData/Config/nginx-proxy-manager/:/data
-      - /portainer/Files/AppData/Config/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      - /docker-data/nginx-proxy-manager/data:/data
+      - /docker-data/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
