@@ -5,7 +5,7 @@ on:
     paths:
       - 'compose/pihole-unbound/pihole/Dockerfile'
       - '.github/workflows/docker-publish-pihole.yml'
-      - 'pihole-unbound/unbound-pihole.conf'
+      - 'compose/pihole-unbound/unbound-pihole.conf'
 
 env:
   REGISTRY: ghcr.io
