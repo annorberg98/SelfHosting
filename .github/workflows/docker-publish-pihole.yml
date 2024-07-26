@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'compose/pihole-unbound/pihole/Dockerfile'
-      - '.github/workflows/docker-publish.yml'
+      - '.github/workflows/docker-publish-pihole.yml'
       - 'pihole-unbound/unbound-pihole.conf'
 
 env:
