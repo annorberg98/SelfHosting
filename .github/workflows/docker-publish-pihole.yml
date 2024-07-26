@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: docker-pihole-unbounded
+  IMAGE_NAME: ${{ github.repository }}-pihole-unbound
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
