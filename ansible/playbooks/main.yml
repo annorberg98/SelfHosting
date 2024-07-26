@@ -1,6 +1,0 @@
-- hosts: servers
-  vars_files:
-    - main.yml
-  roles:
-    - antonnorberg.security
-    - antonnorberg.docker

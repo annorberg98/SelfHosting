@@ -1,5 +1,0 @@
-security_sudoers_passworded:
-  - johndoe
-  - deployacct
-pip_install_packages:
-      - name: docker

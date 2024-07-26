@@ -7,7 +7,8 @@ I use [Portainer](https://github.com/portainer/portainer) to manage all my conta
 | Folder | Usage | 
 | --- | --- | 
 | compose | Contains Docker-Compose files for various software | 
-| tools | Contains varios scripts for intsalling or updating | 
+| tools | Contains various scripts for installing or updating | 
+| ansible | Ansible playbooks
 
 ## Current Setup
 1x Rasperry Pi 4 Model B 4GB
