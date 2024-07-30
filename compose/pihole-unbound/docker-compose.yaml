@@ -7,7 +7,7 @@ volumes:
 services:
   pihole:
     container_name: pihole
-    image: ghcr.io/annorberg98/pihole-unbound:latest
+    image: ghcr.io/annorberg98/docker-pihole-unbound:latest
     hostname: ${HOSTNAME}
     domainname: ${DOMAIN_NAME}
     ports:
