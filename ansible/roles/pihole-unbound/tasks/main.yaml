@@ -1,10 +1,43 @@
-- name: Create pihole directory
-  file:
-    path: "/home/{{ ansible_user }}/pihole"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+
+- name: "Create Compose folder"
+  ansible.builtin.file:
+    path: "{{ ansible_user }}/compose/pihole-unbound"
     state: directory
     mode: 0755
+
+- name: Copy Pihole-Unbound compose file to host
+  ansible.builtin.copy:
+    src: "{{ compose_folder }}/pihole-unbound/docker-compose.yaml"
+    dest:  "{{ ansible_user }}/compose/pihole-unbound/docker-compose.yaml"
+
+- name: Copy Pihole-Unbound .env file to host
+  ansible.builtin.copy:
+    src: "{{ compose_folder }}/pihole-unbound/.env"
+    dest:  "{{ ansible_user }}/compose/pihole-unbound/.env"
+
+- name: Create etc_pihole-unbound directory
+  file:
+    path: "{{ ansible_user }}/pihole/etc_pihole-unbound"
+    state: directory
+    mode: 0755
+
+- name: Create etc_pihole_dnsmasq-unbound directory
+  file:
+    path: "{{ ansible_user }}/pihole/etc_pihole_dnsmasq-unbound"
+    state: directory
+    mode: 0755
+
+- name: Create etc_unbound directory
+  file:
+    path: "{{ ansible_user }}/pihole/etc_unbound"
+    state: directory
+    mode: 0755
+
+#- name: Create hosts file
+#  file:
+#    path: "{{ ansible_user }}/pihole/hosts.ini"
+#    state: touch
+#    mode: 0755
 
 - name: Determine Pi-hole host IPs (HA mode)
   set_fact:
@@ -22,7 +55,7 @@
 
 - name: Start/Update pihole container
   community.docker.docker_compose_v2:
-    project_src: "{{ compose_folder }}/pihole-unbound/"
+    project_src: "{{ ansible_user }}/compose/pihole-unbound/"
     build: never
     pull: always
   register: output

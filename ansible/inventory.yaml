@@ -1,18 +1,10 @@
 all:
   hosts:
-    ubuntu-1:
-      ansible_connection: local
-      ansible_host: 127.0.0.1 ansible_connection=local
-      priority: 101
-  vars: 
-    ansible_user: anton
-    ansible_password: Passw0rd # only used on first run
-    ansible_python_interpreter: /usr/bin/python3
-    github_user_for_ssh_key: annorberg98
-    timezone: "Europe/Stockholm"
-    static_dns: "1.1.1.1"
-    pihole_ha_mode: no
-    #pihole_vip_ipv4: "192.168.50.10/24"
-    #pihole_vip_ipv6: "fd00::10/64"
-    sync_target: "{{ pihole_vip_ipv4.split('/')[0] }}"
-    compose_folder: "/home/anton/Desktop/Projects/Selfhosting/compose/"
+    #ubuntu-1:
+    #  ansible_connection: local
+    #  ansible_host: 127.0.0.1 ansible_connection=local
+    #  priority: 101
+    rpi5:
+      ansible_host: 192.168.50.29
+      priority: 100
+      ansible_user: pi

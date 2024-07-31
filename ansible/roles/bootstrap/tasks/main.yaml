@@ -1,36 +1,35 @@
-- name: Add ssh key
-  ansible.posix.authorized_key:
-    key: https://github.com/{{ github_user_for_ssh_key }}.keys
-    user: "{{ ansible_user }}"
-    comment: "github-{{ github_user_for_ssh_key }}"
+#- name: set authorized_keys
+#  authorized_key:
+#    key: https://github.com/{{ github_user_for_ssh_key }}.keys
+#    user: "{{ ansible_user }}"
 
 #- name: Lock password for {{ ansible_user }}
 #  user:
 #    name: "{{ ansible_user }}"
 #    password_lock: yes
 
-#- name: bashrc for {{ ansible_user }}
-#  blockinfile:
-#    path: "/home/{{ ansible_user }}/.bashrc"
-#    block: alias ll='ls -la'
+- name: bashrc for {{ ansible_user }}
+  blockinfile:
+    path: "/home/{{ ansible_user }}/.bashrc"
+    block: alias ll='ls -la'
 
-#- name: bashrc for root
-#  blockinfile:
-#    path: "{{ ansible_user_dir }}/.bashrc"
-#    block: |
-#      export LS_OPTIONS='--color=auto'
-#      eval "`dircolors`"
-#      alias ls='ls $LS_OPTIONS'
-#      alias ll='ls $LS_OPTIONS -la'
-#      alias l='ls $LS_OPTIONS -lA'
-#
-#      if ! shopt -oq posix; then
-#        if [ -f /usr/share/bash-completion/bash_completion ]; then
-#          . /usr/share/bash-completion/bash_completion
-#        elif [ -f /etc/bash_completion ]; then
-#          . /etc/bash_completion
-#        fi
-#      fi
+- name: bashrc for root
+  blockinfile:
+    path: "{{ ansible_user_dir }}/.bashrc"
+    block: |
+      export LS_OPTIONS='--color=auto'
+      eval "`dircolors`"
+      alias ls='ls $LS_OPTIONS'
+      alias ll='ls $LS_OPTIONS -la'
+      alias l='ls $LS_OPTIONS -lA'
+
+      if ! shopt -oq posix; then
+        if [ -f /usr/share/bash-completion/bash_completion ]; then
+          . /usr/share/bash-completion/bash_completion
+        elif [ -f /etc/bash_completion ]; then
+          . /etc/bash_completion
+        fi
+      fi
 
 
 - name: Set timezone
@@ -51,6 +50,13 @@
     regexp: "^"
     line: "{{ inventory_hostname }}"
   notify: Reboot after hostname change
+
+- name: Disable Bluetooth LE
+  ansible.builtin.systemd:
+      name: bluetooth
+      enabled: no
+      state: stopped
+  when: not raspbian_enable_bluetooth
 
 #- name: Set hosts
 #  lineinfile:

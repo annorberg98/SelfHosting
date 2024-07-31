@@ -65,6 +65,11 @@
     groups: docker
     append: true
 
+- name: "Create Docker Composes folder"
+  ansible.builtin.file:
+    path: "{{ ansible_user }}/compose"
+    state: directory
+
 # reset_connection doesn't support conditionals.
 - name: Reset connection so docker group is picked up.
   meta: reset_connection

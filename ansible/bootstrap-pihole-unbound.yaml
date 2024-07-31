@@ -1,13 +1,10 @@
+# https://github.com/shaderecker/ansible-pihole
+
 - name: Initialize pi
-  hosts: localhost
-  connection: local
+  hosts: all
+  #connection: local
   become: yes
   serial: 1
-  pre_tasks:
-    - debug: 
-        msg: "{{ playbook_dir }}"
-    - debug:
-        msg: "{{ compose_folder }}"
   roles:
     #- stop_keepalived
     - bootstrap
@@ -16,15 +13,4 @@
     - docker
     - pihole-unbound
     #- start_keepalived
-  vars: 
-    ansible_user: anton
-    ansible_password: Passw0rd # only used on first run
-    ansible_python_interpreter: /usr/bin/python3
-    github_user_for_ssh_key: annorberg98
-    timezone: "Europe/Stockholm"
-    static_dns: "1.1.1.1"
-    pihole_ha_mode: no
-    pihole_vip_ipv4: "192.168.50.10/24"
-    #pihole_vip_ipv6: "fd00::10/64"
-    sync_target: "{{ pihole_vip_ipv4.split('/')[0] }}"
-    compose_folder: "/home/anton/Desktop/Projects/Selfhosting/compose"
+  vars_files: 'vars.yaml'
