@@ -1,35 +1,48 @@
+- name: Get the home directory path
+  ansible.builtin.shell: echo $HOME
+  register: home_directory_output
+
+- name: Set home directory path
+  set_fact:
+    home_directory: "{{ home_directory_output.stdout}}"
 
 - name: "Create Compose folder"
   ansible.builtin.file:
-    path: "{{ ansible_user }}/compose/pihole-unbound"
+    path: "{{ home_directory  }}/compose/pihole-unbound"
     state: directory
     mode: 0755
 
 - name: Copy Pihole-Unbound compose file to host
   ansible.builtin.copy:
     src: "{{ compose_folder }}/pihole-unbound/docker-compose.yaml"
-    dest:  "{{ ansible_user }}/compose/pihole-unbound/docker-compose.yaml"
+    dest:  "{{ home_directory  }}/compose/pihole-unbound/docker-compose.yaml"
 
 - name: Copy Pihole-Unbound .env file to host
   ansible.builtin.copy:
     src: "{{ compose_folder }}/pihole-unbound/.env"
-    dest:  "{{ ansible_user }}/compose/pihole-unbound/.env"
+    dest:  "{{ home_directory  }}/compose/pihole-unbound/.env"
+
+- name: Create pihole directory
+  file:
+    path: "{{ home_directory  }}/pihole"
+    state: directory
+    mode: 0755
 
 - name: Create etc_pihole-unbound directory
   file:
-    path: "{{ ansible_user }}/pihole/etc_pihole-unbound"
+    path: "{{ home_directory  }}/pihole/etc_pihole-unbound"
     state: directory
     mode: 0755
 
 - name: Create etc_pihole_dnsmasq-unbound directory
   file:
-    path: "{{ ansible_user }}/pihole/etc_pihole_dnsmasq-unbound"
+    path: "{{ home_directory  }}/pihole/etc_pihole_dnsmasq-unbound"
     state: directory
     mode: 0755
 
 - name: Create etc_unbound directory
   file:
-    path: "{{ ansible_user }}/pihole/etc_unbound"
+    path: "{{ home_directory  }}/pihole/etc_unbound"
     state: directory
     mode: 0755
 
@@ -55,7 +68,7 @@
 
 - name: Start/Update pihole container
   community.docker.docker_compose_v2:
-    project_src: "{{ ansible_user }}/compose/pihole-unbound/"
+    project_src: "{{ home_directory  }}/compose/pihole-unbound/"
     build: never
     pull: always
   register: output
