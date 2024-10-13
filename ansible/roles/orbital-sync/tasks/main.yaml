@@ -1,0 +1,51 @@
+- name: Check pihole container
+  uri:
+    url: http://localhost:1010/admin
+    return_content: yes
+  register: pihole_status
+  retries: 5
+  delay: 10
+  until: pihole_status.status == 200
+
+- name: Fail if Pi-hole is not running
+  fail:
+    msg: "Pi-hole server is not running. Exiting playbook."
+  when: pihole_status.status != 200
+
+- name: Get the home directory path
+  ansible.builtin.shell: echo $HOME
+  register: home_directory_output
+
+- name: Set home directory path
+  set_fact:
+    home_directory: "{{ home_directory_output.stdout}}"
+
+- name: "Create Compose folder"
+  ansible.builtin.file:
+    path: "{{ home_directory  }}/compose/orbital-sync"
+    state: directory
+    mode: 0755
+
+- name: Copy Orbital-sync compose file to host
+  ansible.builtin.copy:
+    src: "{{ compose_folder }}/orbital-sync/docker-compose.yaml"
+    dest:  "{{ home_directory  }}/compose/orbital-sync/docker-compose.yaml"
+
+- name: Copy Orbital-sync .env file to host
+  ansible.builtin.copy:
+    src: "{{ compose_folder }}//orbital-sync/.env"
+    dest:  "{{ home_directory  }}/compose/orbital-sync/.env"
+
+- name: Start/Update orbital-sync container
+  community.docker.docker_compose_v2:
+    project_src: "{{ home_directory }}/compose/orbital-sync/"
+    build: never
+    pull: always
+  register: output
+
+
+- name: Remove old image versions
+  docker_prune:
+    images: yes
+    images_filters:
+      dangling: false
