@@ -17,6 +17,7 @@ I use [Portainer](https://github.com/portainer/portainer) to manage all my conta
 | Container | Usage | GitHub | Own Images |
 | --- | --- | --- | --- |
 | PiHole | Used as DNS and a network-wide Ad blocker | [pihole/pihole](https://github.com/pi-hole/pi-hole) | [annorberg98/docker-pihole-unbound](https://github.com/annorberg98/docker-pihole-unbound) |
+| Orbital-sync | Syncing Pihole Config | [mattwebbio/orbital-sync](https://github.com/mattwebbio/orbital-sync) | N/A |
 | Traefik | Reverse Proxy and Load Balancer | [traefik/traefik](https://github.com/traefik/traefik) | N/A |
 | Mealie | Recepie management and organization | [mealie-recipes/mealie](https://github.com/mealie-recipes/mealie) | N/A |
 | Uptime Kuma | Uptime monitoring of Services | [louislam/uptime-kuma](https://github.com/louislam/uptime-kuma) | N/A |
