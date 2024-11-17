@@ -1,16 +1,4 @@
-- name: Get the home directory path
-  ansible.builtin.shell: echo $HOME
-  register: home_directory_output
-
-- name: Set home directory path
-  set_fact:
-    home_directory: "{{ home_directory_output.stdout}}"
-
-- name: "Create Compose folder"
-  ansible.builtin.file:
-    path: "{{ home_directory  }}/compose/pihole-unbound"
-    state: directory
-    mode: 0755
+- include_tasks: preparation.yaml
 
 - name: Copy Pihole-Unbound compose file to host
   ansible.builtin.copy:
@@ -21,30 +9,6 @@
   ansible.builtin.copy:
     src: "{{ compose_folder }}/pihole-unbound/.env"
     dest:  "{{ home_directory  }}/compose/pihole-unbound/.env"
-
-- name: Create pihole directory
-  file:
-    path: "{{ home_directory  }}/pihole"
-    state: directory
-    mode: 0755
-
-- name: Create etc_pihole-unbound directory
-  file:
-    path: "{{ home_directory  }}/pihole/etc_pihole-unbound"
-    state: directory
-    mode: 0755
-
-- name: Create etc_pihole_dnsmasq-unbound directory
-  file:
-    path: "{{ home_directory  }}/pihole/etc_pihole_dnsmasq-unbound"
-    state: directory
-    mode: 0755
-
-- name: Create etc_unbound directory
-  file:
-    path: "{{ home_directory  }}/pihole/etc_unbound"
-    state: directory
-    mode: 0755
 
 #- name: Create hosts file
 #  file:

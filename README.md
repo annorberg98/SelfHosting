@@ -2,8 +2,6 @@
 
 This repository is a collection of Compose files and tools I use for for hosting a variety of server applications using Docker and Portainer at Home.
 
-I use [Portainer](https://github.com/portainer/portainer) to manage all my containers.
-
 | Folder | Usage | 
 | --- | --- | 
 | compose | Contains Docker-Compose files for various software | 

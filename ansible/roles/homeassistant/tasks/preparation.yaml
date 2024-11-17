@@ -1,0 +1,19 @@
+- name: Get the home directory path
+  ansible.builtin.shell: echo $HOME
+  register: home_directory_output
+
+- name: Set home directory path
+  set_fact:
+    home_directory: "{{ home_directory_output.stdout}}"
+
+- name: "Create Compose folder"
+  ansible.builtin.file:
+    path: "{{ home_directory  }}/compose/homeassistant"
+    state: directory
+    mode: 0755
+
+- name: Create home-assistant directory
+  file:
+    path: "{{ home_directory  }}/homeassistant"
+    state: directory
+    mode: 0755

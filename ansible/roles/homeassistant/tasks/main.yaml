@@ -1,0 +1,21 @@
+- include_tasks: preparation.yaml
+
+- name: Copy home-assistant compose file to host
+  ansible.builtin.copy:
+    src: "{{ compose_folder }}/homeassistant/docker-compose.yaml"
+    dest:  "{{ home_directory  }}/compose/homeassistant/docker-compose.yaml"
+
+- name: Start/Update home-assistant container
+  community.docker.docker_compose_v2:
+    project_src: "{{ home_directory  }}/compose/homeassistant/"
+    build: never
+    pull: always
+  register: output
+
+- name: Check homeassistant container
+  uri:
+    url: http://localhost:8123
+  register: result
+  until: result.status == 200
+  retries: 5
+  delay: 10
